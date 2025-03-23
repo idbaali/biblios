@@ -6,17 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class AwesomeController extends AbstractController
+final class AwesoneController extends AbstractController
 {
-    #[Route('/awesome', name: 'app_awesome')]
+    #[Route('/awesone', name: 'app_awesone')]
     public function index(): Response
     {
-        return $this->render('awesome/index.html.twig', [
-            'controller_name' => 'AwesomeController',
+        return $this->render('awesone/index.html.twig', [
+            'controller_name' => 'AwesoneController',
         ]);
     }
 }
-
-
-
-

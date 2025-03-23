@@ -18,10 +18,16 @@ class Author
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    /**
-     * @var Collection<int, Book>
-     */
-    #[ORM\OneToMany(targetEntity: Book::class, mappedBy: 'authors', orphanRemoval: true)]
+    #[ORM\Column]
+    private ?\DateTimeImmutable $dateOfBirth = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $dateOfDeath = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nationality = null;
+
+    #[ORM\ManyToMany(targetEntity: Book::class, inversedBy: 'authors')]
     private Collection $books;
 
     public function __construct()
@@ -46,6 +52,42 @@ class Author
         return $this;
     }
 
+    public function getDateOfBirth(): ?\DateTimeImmutable
+    {
+        return $this->dateOfBirth;
+    }
+
+    public function setDateOfBirth(\DateTimeImmutable $dateOfBirth): static
+    {
+        $this->dateOfBirth = $dateOfBirth;
+
+        return $this;
+    }
+
+    public function getDateOfDeath(): ?\DateTimeImmutable
+    {
+        return $this->dateOfDeath;
+    }
+
+    public function setDateOfDeath(?\DateTimeImmutable $dateOfDeath): static
+    {
+        $this->dateOfDeath = $dateOfDeath;
+
+        return $this;
+    }
+
+    public function getNationality(): ?string
+    {
+        return $this->nationality;
+    }
+
+    public function setNationality(?string $nationality): static
+    {
+        $this->nationality = $nationality;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Book>
      */
@@ -58,7 +100,6 @@ class Author
     {
         if (!$this->books->contains($book)) {
             $this->books->add($book);
-            $book->setAuthor($this);
         }
 
         return $this;
@@ -66,12 +107,7 @@ class Author
 
     public function removeBook(Book $book): static
     {
-        if ($this->books->removeElement($book)) {
-            // set the owning side to null (unless already changed)
-            if ($book->getAuthor() === $this) {
-                $book->setAuthor(null);
-            }
-        }
+        $this->books->removeElement($book);
 
         return $this;
     }
