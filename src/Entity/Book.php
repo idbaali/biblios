@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Enum\BookStatus;
+use App\Enum\BookStatuts;
 use App\Repository\BookRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -36,7 +36,7 @@ class Book
     private ?int $pageNumber = null;
 
     #[ORM\Column(length: 255)]
-    private ?BookStatus $status = null;
+    private ?BookStatuts $statuts = null;
 
     #[ORM\ManyToOne(inversedBy: 'books')]
     #[ORM\JoinColumn(nullable: false)]
@@ -131,14 +131,14 @@ class Book
         return $this;
     }
 
-    public function getStatus(): ?BookStatus
+    public function getStatuts(): ?BookStatuts
     {
-        return $this->status;
+        return $this->statuts;
     }
 
-    public function setStatus(BookStatus $status): static
+    public function setStatuts(BookStatuts $statuts): static
     {
-        $this->status = $status;
+        $this->statuts = $statuts;
 
         return $this;
     }

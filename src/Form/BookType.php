@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Author;
 use App\Entity\Book;
 use App\Entity\Editor;
-use App\Enum\BookStatus;
+use App\Enum\BookStatuts;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -31,8 +31,8 @@ class BookType extends AbstractType
             ])
             ->add('plot', TextareaType::class)
             ->add('pageNumber', NumberType::class)
-            ->add('status', EnumType::class, [
-                'class' => BookStatus::class,
+            ->add('statuts', EnumType::class, [
+                'class' => BookStatuts::class,
             ])
             ->add('editor', EntityType::class, [
                 'class' => Editor::class,
